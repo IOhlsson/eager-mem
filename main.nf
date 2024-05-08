@@ -2139,7 +2139,7 @@ process mapdamage_calculation {
     def singlestranded = strandedness == "single" ? '--single-stranded' : ''
     def downsample = params.mapdamage_downsample != 0 ? "-n ${params.mapdamage_downsample} --downsample-seed=1" : '' // Include seed to make results consistent between runs
     """
-    mapDamage -i ${bam} -r ${fasta} ${singlestranded} ${downsample} --ymax=${params.mapdamage_yaxis} --no-stats
+    mapDamage -i ${bam} -r ${fasta} ${singlestranded} ${downsample} --merge-libraries --ymax=${params.mapdamage_yaxis} --no-stats
     """
 }
 
