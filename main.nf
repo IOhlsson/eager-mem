@@ -2139,7 +2139,7 @@ process mapdamage_calculation {
     def singlestranded = strandedness == "single" ? '--single-stranded' : ''
     def downsample = params.mapdamage_downsample != 0 ? "-n ${params.mapdamage_downsample} --downsample-seed=1" : '' // Include seed to make results consistent between runs
     """
-    mapDamage --merge-libraries -i ${bam} -r ${fasta} ${singlestranded} ${downsample} --ymax=${params.mapdamage_yaxis} --no-stats
+    mapDamage --merge-reference-sequences -i ${bam} -r ${fasta} ${singlestranded} ${downsample} --ymax=${params.mapdamage_yaxis} --no-stats
     """
 }
 
@@ -2169,7 +2169,7 @@ process mapdamage_rescaling {
     def rescale_length_3p = params.rescale_length_3p != 0 ? "--rescale-length-3p=${params.rescale_length_3p}" : ""
     def rescale_length_5p = params.rescale_length_5p != 0 ? "--rescale-length-5p=${params.rescale_length_5p}" : ""
     """
-    mapDamage --merge-libraries -i ${bam} -r ${fasta} --rescale --rescale-out="${base}_rescaled.bam" --seq-length=${params.rescale_seqlength} ${rescale_length_5p} ${rescale_length_3p} ${singlestranded}
+    mapDamage --merge-reference-sequences -i ${bam} -r ${fasta} --rescale --rescale-out="${base}_rescaled.bam" --seq-length=${params.rescale_seqlength} ${rescale_length_5p} ${rescale_length_3p} ${singlestranded}
     samtools index ${base}_rescaled.bam ${size}
     """
 
